@@ -103,5 +103,3 @@ ok      github.com/MedievaLiar/Cache/cache      0.405s
 
 3. Если не получается – удаляется любая
    
-## Зависимости
-Go 1.21+
