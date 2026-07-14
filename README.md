@@ -39,7 +39,7 @@ go get github.com/MedievaLiar/Cache
 
 
 
-    // Создание кэша
+    // Создание кэша, по умолчанию устанавливаются константы
 
     // defaultTTL - время жизни по умолчанию (5 минут)
     // cleanupInterval - интервал очистки (10 секунд)
@@ -59,7 +59,7 @@ go get github.com/MedievaLiar/Cache
 
     // Проверка существования
     if c.Exists("user2") {
-        fmt.Println("User 2 exists")
+        fmt.Println("User 2 существует")
     }
 
     // Получение всех ключей
@@ -102,5 +102,6 @@ ok      github.com/MedievaLiar/Cache/cache      0.405s
 2. Затем удаляется запись с самым близким истечением TTL
 
 3. Если не получается – удаляется любая
+   
 ## Зависимости
 Go 1.21+
