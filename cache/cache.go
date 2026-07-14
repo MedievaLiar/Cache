@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	//DefaultTTL             = 5 * time.Minute
+	// DefaultTTL             = 5 * time.Minute
 	DefaultCleanupInterval = 30 * time.Second
 	DefaultMaxSize         = 1000
 )
@@ -14,7 +14,6 @@ const (
 type item struct {
 	value      any
 	expiration int64
-	lastAccess int64
 }
 
 type Cache struct {
@@ -27,7 +26,8 @@ type Cache struct {
 }
 
 func NewCache(defaultTTL time.Duration, cleanupInterval time.Duration, maxSize int) *Cache {
-	/*if defaultTTL <= 0 {
+	// может быть необходим ttl = 0
+	/*if defaultTTL <= 0 { 
 		defaultTTL = DefaultTTL
 
 	}*/
@@ -78,7 +78,6 @@ func (c *Cache) Set(key string, value any, ttl time.Duration) {
 	c.items[key] = item{
 		value:      value,
 		expiration: exp,
-		lastAccess: time.Now().UnixNano(),
 	}
 }
 
@@ -95,9 +94,6 @@ func (c *Cache) Get(key string) (any, bool) {
 		delete(c.items, key)
 		return nil, false
 	}
-
-	item.lastAccess = time.Now().UnixNano()
-	c.items[key] = item
 	return item.value, isExist
 }
 
@@ -155,6 +151,7 @@ func (c *Cache) Keys() []string {
 	return keys
 }
 
+// метод для тестов
 func (c *Cache) Size() int {
     	c.rw.RLock()
    	defer c.rw.RUnlock()
@@ -176,6 +173,7 @@ func (c *Cache) backgroundCleanup() {
 	}
 }
 
+// для действий в случае переполнения кэша
 func (c *Cache) deleteOldest() {
 	if len(c.items) == 0 { 
 		return
