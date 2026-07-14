@@ -19,5 +19,5 @@ func main() {
     }
 
     keys := c.Keys()
-    fmt.Printf("Все ключи: %v\n", keys)
+    fmt.Printf("РљР»СЋС‡Рё: %v\n", keys)
 }
